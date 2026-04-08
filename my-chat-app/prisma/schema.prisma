@@ -1,0 +1,15 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL") // 🌟 .env を見る設定
+}
+
+model Chat {
+  id        Int      @id @default(autoincrement())
+  name      String
+  text      String
+  createdAt DateTime @default(now())
+}
