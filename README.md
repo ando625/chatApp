@@ -14,9 +14,7 @@
 
 単なるチャット機能だけでなく、Prisma ORMを使用してデータベース（SQLite）と連携。ページを開いた瞬間に過去の履歴を復元する「初期化処理」を実装しており、実用的なメッセージツールとしての基礎を備えています。
 
-https://github.com/user-attachments/assets/b25085af-9685-4790-808e-d10fe58124f4
-
-https://github.com/user-attachments/assets/0de86d24-c085-42c3-a3ee-da6218897efe
+https://github.com/user-attachments/assets/6d3b2cfb-fcdb-428b-af80-9b185b0fe741
 
 ### 開発の背景
 
