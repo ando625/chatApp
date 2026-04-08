@@ -119,11 +119,22 @@ cd chatApp
 
 ### 手順2：バックエンドの設定
 ```bash
-cd backend
+cd my-chat-app
 npm install
-cp .env.example .env  # データベースURLを設定
+```
+
+#### .envファイルを作成（my-chat-app直下に）
+```
+DATABASE_URL="file:./dev.db"  # データベースURLを設定
+```
+
+
+```
 npx prisma db push    # データベースの器を作成
-npm run start:dev
+```
+
+```
+npm run start:dev    #起動
 ```
 
 ### 手順3：フロントエンドの設定（別のターミナル）
@@ -132,6 +143,42 @@ cd frontend
 npm install
 npm run dev
 ```
+
+---
+
+
+## トラブルシューティング
+
+### 1. `EADDRINUSE: address already in use :::3000` と表示される場合
+
+このエラーは、Next.js（フロントエンド）と NestJS（バックエンド）が**同じ3000番ポートを奪い合っている**ために発生します。
+
+
+
+#### 解決策：ポート番号の変更
+バックエンドを `3001` 番に変更して、衝突を回避します。
+
+1.  **バックエンドの修正**: `backend/src/main.ts` を開き、ポートを `3001` に変更。
+    ```typescript
+    await app.listen(3001);
+    ```
+2.  **フロントエンドの修正**: `frontend/src/app/page.tsx` の接続先を `3001` に変更。
+    ```typescript
+    const SOCKET_SERVER_URL = "http://localhost:3001";
+    ```
+
+#### それでも解決しない場合（プロセスの強制終了）
+以前のプロセスが裏で動いたままになっている可能性があります。Macのターミナルで以下のコマンドを実行して、ポートを解放してください。
+
+```bash
+# 3000番を占有しているプロセスを探す
+lsof -i :3000
+
+# 表示されたPID（数字）を指定して強制終了
+kill -9 [ここにPIDの数字を入れる]
+```
+
+
 
 ---
 
